@@ -117,10 +117,10 @@ const ProjectPage = ({ isMobile, isActive }) => {
                   transition={{ duration: 0.5 }}
                   drag={isMobile ? "x" : "y"}
                   dragConstraints={{
-                    left: currentIndex === 0 ? 0 : -100,
-                    right: currentIndex === reels.length - 1 ? 0 : 100,
-                    top: currentIndex === 0 ? 0 : -100,
-                    bottom: currentIndex === reels.length - 1 ? 0 : 100,
+                    left: currentIndex === reels.length - 1 ? 0 : -100, // Prevent left drag if on the last video
+                    right: currentIndex === 0 ? 0 : 100, // Prevent right drag if on the first video
+                    top: currentIndex === reels.length - 1 ? 0 : -100, // Prevent upward drag if on the last video
+                    bottom: currentIndex === 0 ? 0 : 100, // Prevent downward drag if on the first video
                   }}
                   onDragEnd={(e, { offset }) => {
                     if (isMobile) {
