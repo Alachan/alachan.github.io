@@ -295,7 +295,7 @@ const PortfolioSite = () => {
           <ProjectPage isActive={activeSection === 2} isMobile={isMobile} />
         </div>
         <div className="page" id="page-3">
-          <AboutPage isActive={isMobile || activeSection === 3} />
+          <AboutPage isActive={activeSection === 3} isMobile={isMobile} />
         </div>
       </div>
 

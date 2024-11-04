@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import "./AboutPage.css";
 
-const AboutPage = ({ isActive }) => {
+const AboutPage = ({ isMobile, isActive }) => {
   useEffect(() => {
     if (isActive) {
       const timeline = gsap.timeline();
@@ -25,6 +25,60 @@ const AboutPage = ({ isActive }) => {
       );
     }
   }, [isActive]);
+
+  useEffect(() => {
+    if (isMobile) {
+      const sections = document.querySelectorAll(".about-page .section");
+
+      const observerOptions = {
+        root: null, // Use the viewport as the root
+        rootMargin: "0px",
+        threshold: 0.25, // Trigger when 25% of the section is visible
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Only trigger the animation if the element is in view
+            const timeline = gsap.timeline();
+            const element = entry.target;
+
+            if (element.classList.contains("meet-li")) {
+              timeline.fromTo(
+                element,
+                { x: 0, y: 200, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
+              );
+            } else if (element.classList.contains("what-she-loves")) {
+              timeline.fromTo(
+                element,
+                { x: 0, y: 200, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
+              );
+            } else if (element.classList.contains("in-the-making")) {
+              timeline.fromTo(
+                element,
+                { x: 0, y: 200, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
+              );
+            }
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
+
+      return () => {
+        if (observer) {
+          sections.forEach((section) => {
+            observer.unobserve(section);
+          });
+        }
+      };
+    }
+  }, [isMobile]);
 
   return (
     <div className="about-page">
