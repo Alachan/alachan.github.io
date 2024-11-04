@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+.about-page {
+  font-family: "Space Mono", sans-serif;
+  color: rgb(92, 69, 69);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-image: url("/public/assets/white-paper.png");
+}
+
+.section {
+  width: 90%;
+  max-width: 40vw;
+  padding: 0.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* Initially hidden for animation */
+  transform: translateX(
+    -200px
+  ); /* Initial position to the left for fly-in effect */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.section p {
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.meet-li {
+  background-color: #ffebf0; /* Light pink */
+}
+
+.what-she-loves {
+  background-color: #e7f3ff; /* Light blue */
+}
+
+.in-the-making {
+  background-color: #eaf9e1; /* Light green */
+}
+
+.in-the-making ul {
+  list-style: none; /* Remove default bullet points */
+  padding-left: 0;
+}
+
+.in-the-making li {
+  position: relative;
+  padding-left: 20px; /* Add space for the triangle */
+  margin-bottom: 8px;
+}
+
+.in-the-making li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 8px solid black; /* Triangle color */
+}
+
+.layer {
+  position: absolute;
+  font-size: 3rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 10px; /* Reduce padding for smaller screens */
+    background-size: contain; /* Adjust background size for smaller devices */
+  }
+
+  .section {
+    width: 100%; /* Take full width on mobile screens */
+    max-width: 100%;
+    padding: 1rem;
+    font-size: 0.85rem; /* Reduce font size for better readability */
+  }
+
+  .section h2 {
+    font-size: 1.1rem;
+  }
+
+  .section p,
+  li {
+    text-align: left;
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .in-the-making li {
+    padding-left: 15px; /* Reduce padding for mobile */
+    margin-bottom: 5px;
+  }
+
+  .in-the-making li::before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 6px solid black;
+  }
+}

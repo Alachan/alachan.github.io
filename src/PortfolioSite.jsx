@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./PortfolioSite.css";
-import AboutPage from "./AboutPage";
+import AboutPage from "./pages/AboutPage";
 import gsap from "gsap";
-import ProjectPage from "./ProjectPage";
+import ProjectPage from "./pages/ProjectPage";
+import PhotoPage from "./pages/PhotoPage";
 
 const PortfolioSite = () => {
   const [fullscreenImage, setFullscreenImage] = useState(null);
   const [fullscreenAlt, setFullscreenAlt] = useState("");
   const [activeSection, setActiveSection] = useState(1);
   const [showGif, setShowGif] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   // Function to toggle the GIF visibility
   const toggleGif = () => {
@@ -54,6 +56,15 @@ const PortfolioSite = () => {
       gsap.killTweensOf(".animated-gif"); // Stop animation when GIF is hidden
     }
   }, [showGif]);
+
+  // Function to handle viewport changes
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const photoItems = document.querySelectorAll(".photo-item");
@@ -267,39 +278,20 @@ const PortfolioSite = () => {
         </button>
 
         <div className="page active" id="page-1">
-          <div className="photo-grid">
-            {images.map((image, index) => (
-              <div
-                key={index}
-                className="photo-item"
-                onClick={() => handleImageClick(image.src, image.alt)}
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="hover-image grayscale"
-                />
-              </div>
-            ))}
-          </div>
-          {fullscreenImage && (
-            <div className="fullscreen-overlay" onClick={handleCloseFullscreen}>
-              <div className="fullscreen-content">
-                <figure className="fullscreen-content">
-                  <img src={fullscreenImage} alt={fullscreenAlt} />
-                  <figcaption className="fullscreen-caption">
-                    {fullscreenAlt}
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-          )}
+          <PhotoPage
+            images={images}
+            handleImageClick={handleImageClick}
+            fullscreenImage={fullscreenImage}
+            fullscreenAlt={fullscreenAlt}
+            handleCloseFullscreen={handleCloseFullscreen}
+            isMobile={isMobile}
+          />
         </div>
         <div className="page" id="page-2">
-          <ProjectPage isActive={activeSection === 2} />
+          <ProjectPage isActive={activeSection === 2} isMobile={isMobile} />
         </div>
         <div className="page" id="page-3">
-          <AboutPage isActive={activeSection === 3} />
+          <AboutPage isActive={isMobile || activeSection === 3} />
         </div>
       </div>
 

@@ -1,0 +1,194 @@
+/* ProjectPage.css */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+.project-page-container {
+  font-family: "Space Mono", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  position: relative;
+}
+
+.right-section {
+  width: 50%;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-section h2 {
+  color: #eb9ee3;
+  font-size: 1.2rem;
+}
+
+.right-section p {
+  color: rgb(165, 89, 91);
+  font-size: 0.9rem;
+  line-height: 1.2;
+  margin-top: 1.2rem;
+}
+
+.right-section a {
+  text-decoration: none;
+  color: rgb(65, 39, 80);
+  font-weight: bold;
+}
+
+/* Social interactions positioned to the right of the phone frame */
+.social-interactions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-left: 10px; /* Spacing to separate it from phone frame */
+}
+
+.interaction-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #84ace0;
+  font-size: 0.8rem;
+}
+
+.interaction-icon {
+  height: 64px;
+  width: auto;
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+/* Phone frame styling */
+.phone-frame {
+  position: relative;
+  width: 393.75px;
+  height: 700px;
+  background: #000;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Sound toggle button */
+.sound-toggle-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.4); /* Make it more transparent */
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sound-toggle-button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  transform: scale(1.1);
+}
+
+.reel {
+  width: 100%;
+  height: 100%;
+}
+
+.reel-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  font-family: "Inter", sans-serif;
+  position: absolute;
+  bottom: 0;
+  left: -15px;
+  width: 100%;
+  padding: 20px;
+  background: transparent;
+  color: #fff;
+}
+
+.overlay-content h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.overlay-content p {
+  margin: 5px 0 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .project-page-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    padding-top: 10px;
+  }
+
+  .content-container {
+    flex-direction: column;
+    width: 100%;
+    max-width: none;
+    padding: 0;
+  }
+
+  .left-section {
+    padding: 10px;
+  }
+
+  .right-section {
+    width: 100%;
+    padding: 0 20px;
+    margin-left: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .right-section p {
+    margin-top: 10px;
+  }
+
+  .right-section a {
+    color: #84a767;
+  }
+
+  .phone-frame {
+    width: 100%;
+    height: auto;
+    max-width: 393.75px; /* Keep the max width for phone */
+    aspect-ratio: 393.75 / 700;
+    box-shadow: none;
+  }
+
+  .sound-toggle-button {
+    top: 10px;
+    right: 10px;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+  }
+}
