@@ -230,7 +230,11 @@ const PortfolioSite = () => {
                   className="social-icon"
                 />
               </a>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a
+                href="/Li-Huang-Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img
                   src="/assets/icons/resume.png"
                   alt="Resume"
