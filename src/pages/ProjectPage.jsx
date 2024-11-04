@@ -98,15 +98,22 @@ const ProjectPage = ({ isMobile, isActive }) => {
                 <motion.div
                   key={currentIndex}
                   className="reel"
-                  initial={{
-                    x: isMobile ? "100%" : 0,
-                    y: isMobile ? 0 : "100%",
-                  }}
+                  initial={
+                    isMobile
+                      ? { x: currentIndex > 0 ? "100%" : "-100%" }
+                      : { y: currentIndex > 0 ? "100%" : "-100%" }
+                  }
                   animate={{ x: 0, y: 0 }}
-                  exit={{
-                    x: isMobile ? "-100%" : 0,
-                    y: isMobile ? 0 : "-100%",
-                  }}
+                  // Set exit to match the swipe direction for a natural effect
+                  exit={
+                    isMobile
+                      ? {
+                          x: currentIndex < reels.length - 1 ? "-100%" : "100%",
+                        }
+                      : {
+                          y: currentIndex < reels.length - 1 ? "-100%" : "100%",
+                        }
+                  }
                   transition={{ duration: 0.5 }}
                   drag={isMobile ? "x" : "y"}
                   dragConstraints={{
