@@ -13,6 +13,7 @@ const reels = [
       explanation:
         "Fat Ninja Rush is a fun and challenging Flappy Bird-inspired game developed using Unity.\nIt features a scrolling parallax background with multiple layers to create a dynamic and immersive environment.",
       url: "https://play.unity.com/en/games/688a1be4-bc58-4cf4-ae38-90133c2846d2/fat-ninja-rush",
+      img: "",
     },
   },
   {
@@ -23,6 +24,19 @@ const reels = [
       explanation:
         "In Mystic Realm, players control a ship targeted by mysterious rocks and must use quick reflexes to destroy them to survive.\nThe game features physics interactions and raycasting for accurate aiming and shooting. Navigation and shooting mechanics are handled via a combination of keyboard and mouse controls.",
       url: "https://play.unity.com/en/games/ed24e50e-ad81-453f-b877-fa23de387d6a/mystic-realm",
+      img: "",
+    },
+  },
+  {
+    title: "Smart To-Do",
+    description:
+      "A feature-rich to-do list app built with React Native and Firebase.",
+    videoSrc: "/assets/videos/todo-demo.mp4",
+    details: {
+      explanation:
+        "Smart To-Do enables users to manage tasks with cloud storage, swipe-to-delete functionality, and multimedia features.\nThe app allows users to save photos, record and replay audio notes, and store data securely in Firebase for access across devices.",
+      url: "",
+      img: "/assets/todo-log.png",
     },
   },
 ];
@@ -156,7 +170,11 @@ const ProjectPage = ({ isMobile, isActive }) => {
                       }
                     }}
                   />
-                  <div className="overlay">
+                  <div
+                    className={`overlay ${
+                      currentIndex === 2 ? "dark-text" : ""
+                    }`}
+                  >
                     <div className="overlay-content">
                       <h2>{reels[currentIndex].title}</h2>
                       <p>{reels[currentIndex].description}</p>
@@ -197,13 +215,22 @@ const ProjectPage = ({ isMobile, isActive }) => {
                 </React.Fragment>
               ))}
           </p>
-          <a
-            href={reels[currentIndex].details.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Play the game here
-          </a>
+          {reels[currentIndex].details.url !== "" && (
+            <a
+              href={reels[currentIndex].details.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Play the game here
+            </a>
+          )}
+          {reels[currentIndex].details.img !== "" && (
+            <img
+              src={reels[currentIndex].details.img}
+              alt="preview"
+              style={{ width: "100%", height: "auto" }}
+            />
+          )}
         </div>
       </div>
     </div>
