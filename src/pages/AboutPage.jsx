@@ -103,7 +103,7 @@ const AboutPage = ({ isMobile, isActive }) => {
         <h2>In the Making 🗽</h2>
         <ul>
           <li>Full-stack wizard.</li>
-          <li>Aspiring JRPG maker.</li>
+          <li>Aspiring JRPG dev.</li>
           <li>Solo travel pro.</li>
           <li>Photographer.</li>
           <li>Amateur true crime detective.</li>

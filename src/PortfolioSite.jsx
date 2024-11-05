@@ -110,48 +110,51 @@ const PortfolioSite = () => {
 
   const images = [
     {
-      src: "./assets/photo1.jpg",
+      src: "./assets/photos/DevilYardang.jpg",
       alt: "It is called Devil City of Yardang for a reason",
     },
     {
-      src: "./assets/SquirrelsOnPowerLine.jpg",
+      src: "./assets/photos/SquirrelsOnPowerLine.jpg",
       alt: "Little creature dancing on the power line",
     },
-    { src: "./assets/Namtso.jpg", alt: "Havenly Lake Namtso, so angelic" },
     {
-      src: "./assets/Mingsha.jpg",
+      src: "./assets/photos/Namtso.jpg",
+      alt: "Havenly Lake Namtso, so angelic",
+    },
+    {
+      src: "./assets/photos/Mingsha.jpg",
       alt: "Waiting for sunset in Singing Sand Dunes",
     },
     {
-      src: "./assets/SleepingDogs.jpg",
+      src: "./assets/photos/SleepingDogs.jpg",
       alt: "Cute buddies in Centro Historico, CDMX",
     },
     {
-      src: "./assets/NyenchenTanglha.jpg",
+      src: "./assets/photos/NyenchenTanglha.jpg",
       alt: "The one and holy Nyenchen Tanglha",
     },
     {
-      src: "./assets/Arashiyama.jpg",
+      src: "./assets/photos/Arashiyama.jpg",
       alt: "Train not spotted in Arashiyama, Kyoto",
     },
     {
-      src: "./assets/ViewFromChapultepec.jpg",
+      src: "./assets/photos/ViewFromChapultepec.jpg",
       alt: "Mad about the symmetric view from Chapultepec Castle",
     },
     {
-      src: "./assets/YardangPark.jpg",
+      src: "./assets/photos/YardangPark.jpg",
       alt: "Sun setting in Yardang National Geopark, Dunhuang",
     },
     {
-      src: "./assets/Sakura.jpg",
+      src: "./assets/photos/Sakura.jpg",
       alt: "Sakura and lives blossom in Nakano, Tokyo",
     },
     {
-      src: "./assets/MexicoCity.jpg",
+      src: "./assets/photos/MexicoCity.jpg",
       alt: "Miss the vibrancy of Mexico City",
     },
     {
-      src: "./assets/TibetanHighway.jpg",
+      src: "./assets/photos/TibetanHighway.jpg",
       alt: "Had to take the pic during a road trip in Tibet",
     },
   ];
