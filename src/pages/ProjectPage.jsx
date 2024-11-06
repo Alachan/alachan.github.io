@@ -45,20 +45,15 @@ const ProjectPage = ({ isMobile, isActive }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
+  const directionRef = useRef("next");
 
-  const handleSwipe = (direction) => {
-    if (isMobile) {
-      if (direction === "right" && currentIndex < reels.length - 1) {
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-      } else if (direction === "left" && currentIndex > 0) {
-        setCurrentIndex((prevIndex) => prevIndex - 1);
-      }
-    } else {
-      if (direction === "up" && currentIndex < reels.length - 1) {
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-      } else if (direction === "down" && currentIndex > 0) {
-        setCurrentIndex((prevIndex) => prevIndex - 1);
-      }
+  const handleSwipe = (swipeDirection) => {
+    console.log(currentIndex);
+    directionRef.current = swipeDirection;
+    if (swipeDirection === "next" && currentIndex < reels.length - 1) {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    } else if (swipeDirection === "previous" && currentIndex > 0) {
+      setCurrentIndex((prevIndex) => prevIndex - 1);
     }
   };
 
@@ -93,11 +88,11 @@ const ProjectPage = ({ isMobile, isActive }) => {
   }, [currentIndex]);
 
   useEffect(() => {
-    if (!isActive) {
+    if (!isActive && !isMobile) {
       setCurrentIndex(0);
       setIsMuted(true);
     }
-  }, [isActive]);
+  }, [isActive, isMobile]);
 
   return (
     <div className="project-page-container">
@@ -114,18 +109,49 @@ const ProjectPage = ({ isMobile, isActive }) => {
                   className="reel"
                   initial={
                     isMobile
-                      ? { x: currentIndex > 0 ? "100%" : "-100%" }
-                      : { y: currentIndex > 0 ? "100%" : "-100%" }
+                      ? {
+                          x:
+                            currentIndex === 0
+                              ? "100%" // Start from right for the first video
+                              : currentIndex === reels.length - 1
+                              ? "-100%" // Start from left for the last video
+                              : directionRef.current === "next"
+                              ? "100%"
+                              : "-100%",
+                        }
+                      : {
+                          y:
+                            currentIndex === 0
+                              ? "100%" // Start from bottom for the first video
+                              : currentIndex === reels.length - 1
+                              ? "-100%" // Start from top for the last video
+                              : directionRef.current === "next"
+                              ? "100%"
+                              : "-100%",
+                        }
                   }
                   animate={{ x: 0, y: 0 }}
-                  // Set exit to match the swipe direction for a natural effect
                   exit={
                     isMobile
                       ? {
-                          x: currentIndex < reels.length - 1 ? "-100%" : "100%",
+                          x:
+                            currentIndex === 0
+                              ? "-100%" // Exit to left for the first video
+                              : currentIndex === reels.length - 1
+                              ? "100%" // Exit to right for the last video
+                              : directionRef.current === "next"
+                              ? "-100%"
+                              : "100%",
                         }
                       : {
-                          y: currentIndex < reels.length - 1 ? "-100%" : "100%",
+                          y:
+                            currentIndex === 0
+                              ? "-100%" // Exit to top for the first video
+                              : currentIndex === reels.length - 1
+                              ? "100%" // Exit to bottom for the last video
+                              : directionRef.current === "next"
+                              ? "-100%"
+                              : "100%",
                         }
                   }
                   transition={{ duration: 0.5 }}
@@ -136,20 +162,32 @@ const ProjectPage = ({ isMobile, isActive }) => {
                     top: currentIndex === reels.length - 1 ? 0 : -100, // Prevent upward drag if on the last video
                     bottom: currentIndex === 0 ? 0 : 100, // Prevent downward drag if on the first video
                   }}
-                  onDragEnd={(e, { offset }) => {
+                  onDragEnd={(e, { offset, velocity }) => {
                     if (isMobile) {
                       // Handle left/right swipes for mobile
-                      if (offset.x < -100 && currentIndex < reels.length - 1) {
-                        handleSwipe("right");
-                      } else if (offset.x > 100 && currentIndex > 0) {
-                        handleSwipe("left");
+                      if (
+                        (offset.x < -50 || velocity.x < -0.5) &&
+                        currentIndex < reels.length - 1
+                      ) {
+                        handleSwipe("next"); // Swipe left for next video
+                      } else if (
+                        (offset.x > 50 || velocity.x > 0.5) &&
+                        currentIndex > 0
+                      ) {
+                        handleSwipe("previous"); // Swipe right for previous video
                       }
                     } else {
                       // Handle up/down swipes for desktop
-                      if (offset.y < -100 && currentIndex < reels.length - 1) {
-                        handleSwipe("up");
-                      } else if (offset.y > 100 && currentIndex > 0) {
-                        handleSwipe("down");
+                      if (
+                        (offset.y < -50 || velocity.y < -0.5) &&
+                        currentIndex < reels.length - 1
+                      ) {
+                        handleSwipe("next"); // Swipe up for next video
+                      } else if (
+                        (offset.y > 50 || velocity.y > 0.5) &&
+                        currentIndex > 0
+                      ) {
+                        handleSwipe("previous"); // Swipe down for previous video
                       }
                     }
                   }}
