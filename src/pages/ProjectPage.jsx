@@ -48,12 +48,49 @@ const ProjectPage = ({ isMobile, isActive }) => {
   const directionRef = useRef("next");
 
   const handleSwipe = (swipeDirection) => {
-    console.log(currentIndex);
     directionRef.current = swipeDirection;
     if (swipeDirection === "next" && currentIndex < reels.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     } else if (swipeDirection === "previous" && currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
+    }
+  };
+
+  const getAnimationProps = (index, direction) => {
+    if (isMobile) {
+      return {
+        initial: {
+          x: direction === "next" ? "100%" : "-100%",
+        },
+        animate: { x: 0 },
+        exit: {
+          x:
+            index === 0
+              ? "-100%" // Exit to left for the first video
+              : index === reels.length - 1
+              ? "100%" // Exit to right for the last video
+              : direction === "next"
+              ? "-100%"
+              : "100%",
+        },
+      };
+    } else {
+      return {
+        initial: {
+          y: direction === "next" ? "100%" : "-100%",
+        },
+        animate: { y: 0 },
+        exit: {
+          y:
+            index === 0
+              ? "-100%" // Exit to top for the first video
+              : index === reels.length - 1
+              ? "100%" // Exit to bottom for the last video
+              : direction === "next"
+              ? "-100%"
+              : "100%",
+        },
+      };
     }
   };
 
@@ -102,92 +139,44 @@ const ProjectPage = ({ isMobile, isActive }) => {
             <button className="sound-toggle-button" onClick={toggleSound}>
               {isMuted ? "Enable Sound" : "Mute Sound"}
             </button>
-            <AnimatePresence initial={false}>
+            <AnimatePresence mode="popLayout" initial={false}>
               {(isActive || isMobile) && (
                 <motion.div
                   key={currentIndex}
                   className="reel"
-                  initial={
-                    isMobile
-                      ? {
-                          x:
-                            currentIndex === 0
-                              ? "100%" // Start from right for the first video
-                              : currentIndex === reels.length - 1
-                              ? "-100%" // Start from left for the last video
-                              : directionRef.current === "next"
-                              ? "100%"
-                              : "-100%",
-                        }
-                      : {
-                          y:
-                            currentIndex === 0
-                              ? "100%" // Start from bottom for the first video
-                              : currentIndex === reels.length - 1
-                              ? "-100%" // Start from top for the last video
-                              : directionRef.current === "next"
-                              ? "100%"
-                              : "-100%",
-                        }
-                  }
-                  animate={{ x: 0, y: 0 }}
-                  exit={
-                    isMobile
-                      ? {
-                          x:
-                            currentIndex === 0
-                              ? "-100%" // Exit to left for the first video
-                              : currentIndex === reels.length - 1
-                              ? "100%" // Exit to right for the last video
-                              : directionRef.current === "next"
-                              ? "-100%"
-                              : "100%",
-                        }
-                      : {
-                          y:
-                            currentIndex === 0
-                              ? "-100%" // Exit to top for the first video
-                              : currentIndex === reels.length - 1
-                              ? "100%" // Exit to bottom for the last video
-                              : directionRef.current === "next"
-                              ? "-100%"
-                              : "100%",
-                        }
-                  }
-                  transition={{ duration: 0.5 }}
+                  {...getAnimationProps(currentIndex, directionRef.current)}
+                  transition={{ duration: 0.4, ease: "easeInOut" }}
                   drag={isMobile ? "x" : "y"}
                   dragConstraints={{
-                    left: currentIndex === reels.length - 1 ? 0 : -100, // Prevent left drag if on the last video
-                    right: currentIndex === 0 ? 0 : 100, // Prevent right drag if on the first video
-                    top: currentIndex === reels.length - 1 ? 0 : -100, // Prevent upward drag if on the last video
-                    bottom: currentIndex === 0 ? 0 : 100, // Prevent downward drag if on the first video
+                    left: currentIndex === reels.length - 1 ? 0 : -100,
+                    right: currentIndex === 0 ? 0 : 100,
+                    top: currentIndex === reels.length - 1 ? 0 : -100,
+                    bottom: currentIndex === 0 ? 0 : 100,
                   }}
                   onDragEnd={(e, { offset, velocity }) => {
                     if (isMobile) {
-                      // Handle left/right swipes for mobile
                       if (
                         (offset.x < -50 || velocity.x < -0.5) &&
                         currentIndex < reels.length - 1
                       ) {
-                        handleSwipe("next"); // Swipe left for next video
+                        handleSwipe("next");
                       } else if (
                         (offset.x > 50 || velocity.x > 0.5) &&
                         currentIndex > 0
                       ) {
-                        handleSwipe("previous"); // Swipe right for previous video
+                        handleSwipe("previous");
                       }
                     } else {
-                      // Handle up/down swipes for desktop
                       if (
                         (offset.y < -50 || velocity.y < -0.5) &&
                         currentIndex < reels.length - 1
                       ) {
-                        handleSwipe("next"); // Swipe up for next video
+                        handleSwipe("next");
                       } else if (
                         (offset.y > 50 || velocity.y > 0.5) &&
                         currentIndex > 0
                       ) {
-                        handleSwipe("previous"); // Swipe down for previous video
+                        handleSwipe("previous");
                       }
                     }
                   }}
