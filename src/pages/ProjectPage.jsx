@@ -39,6 +39,18 @@ const reels = [
       img: "/assets/todo-log.png",
     },
   },
+  {
+    title: "NYT Top Stories",
+    description:
+      "An engaging news app fetching top stories from The New York Times API.",
+    videoSrc: "/assets/videos/nyt-demo.mp4",
+    details: {
+      explanation:
+        "NYT Top Stories provides a seamless news experience with fragments for modular UI design, coroutines for efficient data fetching, and MVVM architecture for clean separation of concerns.\nThe app features user-friendly navigation, a favorites section to save articles, and search by categories.\nBuilt with Kotlin, it integrates Firebase for authentication and secure data storage.",
+      url: "",
+      img: "/assets/nyt-code.png",
+    },
+  },
 ];
 
 const ProjectPage = ({ isMobile, isActive }) => {
