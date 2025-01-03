@@ -234,7 +234,7 @@ const PortfolioSite = () => {
                 />
               </a>
               <a
-                href="/assets/Li-Huang-Resume.pdf"
+                href="/assets/Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
               >
