@@ -205,7 +205,7 @@ const PortfolioSite = () => {
             </span>
             <div className="social-links">
               <a
-                href="https://www.linkedin.com/in/li-huang-113199126/"
+                href="https://www.linkedin.com/in/li-h-113199126/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
