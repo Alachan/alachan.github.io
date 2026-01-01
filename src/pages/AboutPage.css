@@ -2,49 +2,249 @@
 
 .about-page {
   font-family: "Space Mono", sans-serif;
-  color: rgb(92, 69, 69);
+  color: #2d3748;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  background: #fafafa;
+}
+
+.about-page::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: url('data:image/svg+xml;utf8,<svg width="1200" height="1200" xmlns="http://www.w3.org/2000/svg"><path d="M 0,600 Q 200,400 400,600 T 800,600 T 1200,600" stroke="rgba(200,200,200,0.3)" stroke-width="2" fill="none"/><path d="M 0,400 Q 200,200 400,400 T 800,400 T 1200,400" stroke="rgba(180,180,180,0.25)" stroke-width="1.5" fill="none"/><path d="M 0,800 Q 200,600 400,800 T 800,800 T 1200,800" stroke="rgba(160,160,160,0.2)" stroke-width="1" fill="none"/></svg>');
+  background-size: 1200px 1200px;
+  animation: flow-lines-1 30s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+.about-page::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: url('data:image/svg+xml;utf8,<svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg"><path d="M 100,500 Q 300,300 500,500 T 900,500" stroke="rgba(210,210,210,0.25)" stroke-width="2" fill="none"/><path d="M 100,300 Q 300,500 500,300 T 900,300" stroke="rgba(190,190,190,0.2)" stroke-width="1.5" fill="none"/><path d="M 100,700 Q 300,500 500,700 T 900,700" stroke="rgba(170,170,170,0.15)" stroke-width="1" fill="none"/></svg>');
+  background-size: 1000px 1000px;
+  animation: flow-lines-2 25s linear infinite reverse;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+@keyframes flow-lines-1 {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-400px, 300px) rotate(15deg);
+  }
+}
+
+@keyframes flow-lines-2 {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(350px, -250px) rotate(-10deg);
+  }
+}
+
+.cards-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+
+/* Y2K Window Card Styling */
+.card-polaroid {
+  position: absolute;
+  width: 380px;
+  min-height: 260px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              box-shadow 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-color 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 1 !important;
+  visibility: visible !important;
+  font-family: "Space Mono", monospace;
+  overflow: hidden;
+}
+
+/* Window Title Bar */
+.window-title-bar {
+  height: 40px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 20px;
-  padding: 20px;
-  background-image: url("/public/assets/white-paper.png");
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #4a2545;
+  position: relative;
+}
+
+.window-title-bar::after {
+  content: "− □ ×";
+  position: absolute;
+  right: 12px;
+  font-size: 14px;
+  color: rgba(74, 37, 69, 0.6);
+  letter-spacing: 8px;
+  font-weight: 400;
+}
+
+.title-icon {
+  font-size: 1rem;
+}
+
+/* Colored Title Bars for each card */
+.card-1-title {
+  background: linear-gradient(135deg, #e8eef2 0%, #b8c6db 50%, #d1dce5 100%);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.card-2-title {
+  background: linear-gradient(135deg, #deece6 0%, #98fb98 100%);
+}
+
+.card-3-title {
+  background: linear-gradient(135deg, #e4cbe7 0%, #d4c5f9 100%);
+}
+
+.card-polaroid .section {
+  padding: 1.5rem;
+}
+
+.card-1:hover {
+  transform: scale(1.03) translateY(-8px) rotate(-6deg) !important;
+  box-shadow:
+    0 20px 60px rgba(102, 126, 234, 0.4),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  z-index: 100 !important;
+}
+
+.card-2:hover {
+  transform: scale(1.03) translateY(-8px) rotate(5deg) !important;
+  box-shadow:
+    0 20px 60px rgba(118, 75, 162, 0.4),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  z-index: 100 !important;
+}
+
+.card-3:hover {
+  transform: translateX(-50%) scale(1.03) translateY(-8px) rotate(-4deg) !important;
+  box-shadow:
+    0 20px 60px rgba(240, 147, 251, 0.4),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  z-index: 100 !important;
+}
+
+/* Individual Card Positions - Better spread */
+.card-1 {
+  top: 10%;
+  left: 5%;
+  z-index: 10;
+}
+
+.card-2 {
+  top: 8%;
+  right: 5%;
+  z-index: 9;
+}
+
+.card-3 {
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  z-index: 8;
 }
 
 .section {
-  width: 90%;
-  max-width: 40vw;
-  padding: 0.5rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  opacity: 0; /* Initially hidden for animation */
-  transform: translateX(
-    -200px
-  ); /* Initial position to the left for fly-in effect */
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-.section h2 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-}
-
 .section p {
-  font-size: 0.9rem;
-  line-height: 1.3;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #4a5568;
+  margin-bottom: 12px;
 }
 
-.meet-li {
-  background-color: #ffebf0; /* Light pink */
+.section p:last-child {
+  margin-bottom: 0;
 }
 
-.what-she-loves {
-  background-color: #e7f3ff; /* Light blue */
+.section ul {
+  margin: 0;
 }
 
+.section ul li {
+  color: #4a5568;
+}
+
+/* Card sections - plain white background */
+.meet-li,
+.what-she-loves,
 .in-the-making {
-  background-color: #eaf9e1; /* Light green */
+  background: transparent;
+}
+
+/* Sanctuary Link Styling */
+.sanctuary-intro {
+  margin-top: 14px;
+  font-style: italic;
+  opacity: 1;
+}
+
+.sanctuary-link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 700;
+  position: relative;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.sanctuary-link:hover {
+  color: #764ba2;
+  transform: translateY(-2px);
+}
+
+.sanctuary-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  transition: width 0.3s ease;
+}
+
+.sanctuary-link:hover::after {
+  width: 100%;
 }
 
 .in-the-making ul {
@@ -67,7 +267,7 @@
   height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-bottom: 8px solid black; /* Triangle color */
+  border-bottom: 8px solid #4a5568; /* Triangle color */
 }
 
 .layer {
@@ -80,39 +280,72 @@
 
 @media (max-width: 768px) {
   .about-page {
-    padding: 10px; /* Reduce padding for smaller screens */
-    background-size: contain; /* Adjust background size for smaller devices */
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
   }
 
-  .section {
-    width: 100%; /* Take full width on mobile screens */
-    max-width: 100%;
-    padding: 1rem;
-    font-size: 0.85rem; /* Reduce font size for better readability */
+  .cards-container {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px 0;
   }
 
-  .section h2 {
-    font-size: 1.1rem;
+  /* Stack cards vertically on mobile, remove rotations */
+  .card-polaroid {
+    position: relative !important;
+    width: 100%;
+    max-width: 400px;
+    transform: none !important;
+    margin: 0 auto;
   }
+
+  .card-1,
+  .card-2,
+  .card-3 {
+    transform: none !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+
+  .card-polaroid:hover {
+    transform: scale(1.02) translateY(-5px) !important;
+  }
+
+  .card-polaroid .section {
+    padding: 1.25rem;
+  }
+
   .section p {
     margin-bottom: 0.7rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 
-  .section p,
-  li {
-    text-align: left;
-    font-size: 0.8rem;
-    line-height: 1.2;
+  .window-title-bar {
+    font-size: 0.9rem;
+    height: 38px;
+  }
+
+  .title-icon {
+    font-size: 0.9rem;
   }
 
   .in-the-making li {
-    padding-left: 15px; /* Reduce padding for mobile */
+    padding-left: 15px;
     margin-bottom: 5px;
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 
   .in-the-making li::before {
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-bottom: 6px solid black;
+    border-bottom: 6px solid #4a5568;
   }
 }

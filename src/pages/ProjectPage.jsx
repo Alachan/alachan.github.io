@@ -6,6 +6,38 @@ import "./ProjectPage.css";
 
 const reels = [
   {
+  title: "ChaTime",
+  description: "A real-time chat platform built using Laravel and React.",
+  videoSrc: "/assets/videos/chat.mp4",
+  details: {
+    explanation:
+      "ChaTime is a real-time chat application that blends modern messaging technology with tea-inspired social spaces.\n" +
+      "The platform allows users to join public chatrooms or create private password-protected rooms for more intimate conversations.\n" +
+      "Built with Laravel and React, ChaTime features WebSocket-based real-time messaging, user authentication, and dynamic member presence updates.\n" +
+      "Users can edit and delete messages, upload profile avatars, view system join/leave events, and enjoy smooth animated UI interactions.",
+    url: "https://cha-time.vercel.app/",
+    cta: "Try the chat app",
+    img: ""
+  },
+  darkText: true,
+},
+  {
+    title: "Newstead Academy Child Care",
+    description: "The official website for a multi-location child care academy.",
+    videoSrc: "/assets/videos/newstead.mp4", 
+    details: {
+      explanation:
+        "Newstead Academy Child Care is the official website developed for a licensed child care business with multiple locations across Ontario.\n" +
+        "The platform was built using Next.js with a focus on performance, accessibility, SEO, and mobile-first design.\n" +
+        "It features custom enrollment flows, location-based program pages, responsive layouts, and optimized image delivery for fast loading.\n" +
+        "The website supports marketing growth, parent onboarding, and daily operational communication while maintaining WCAG-friendly accessibility standards.",
+      url: "https://www.newsteadacademy.ca/",
+      cta: "Visit the website",
+      img: ""
+    },
+    darkText: true,
+  },
+  {
     title: "Fat Ninja Rush",
     description: "A Flappy Bird inspired game made using Unity.",
     videoSrc: "/assets/videos/ninja.mp4",
@@ -13,8 +45,10 @@ const reels = [
       explanation:
         "Fat Ninja Rush is a fun and challenging Flappy Bird-inspired game developed using Unity.\nIt features a scrolling parallax background with multiple layers to create a dynamic and immersive environment.",
       url: "https://play.unity.com/en/games/688a1be4-bc58-4cf4-ae38-90133c2846d2/fat-ninja-rush",
+      cta: "Play the game here",
       img: "",
     },
+    darkText: false,
   },
   {
     title: "Mystic Realm",
@@ -24,8 +58,10 @@ const reels = [
       explanation:
         "In Mystic Realm, players control a ship targeted by mysterious rocks and must use quick reflexes to destroy them to survive.\nThe game features physics interactions and raycasting for accurate aiming and shooting. Navigation and shooting mechanics are handled via a combination of keyboard and mouse controls.",
       url: "https://play.unity.com/en/games/ed24e50e-ad81-453f-b877-fa23de387d6a/mystic-realm",
+      cta: "Play the game here",
       img: "",
     },
+    darkText: false,
   },
   {
     title: "Smart To-Do",
@@ -38,6 +74,7 @@ const reels = [
       url: "",
       img: "/assets/todo-log.png",
     },
+    darkText: true,
   },
   {
     title: "NYT Top Stories",
@@ -48,8 +85,9 @@ const reels = [
       explanation:
         "NYT Top Stories provides a seamless news experience with fragments for modular UI design, coroutines for efficient data fetching, and MVVM architecture for clean separation of concerns.\nThe app features user-friendly navigation, a favorites section to save articles, and search by categories.\nBuilt with Kotlin, it integrates Firebase for authentication and secure data storage.",
       url: "",
-      img: "/assets/nyt-code.png",
+      img: "",
     },
+    darkText: true,
   },
 ];
 
@@ -147,6 +185,7 @@ const ProjectPage = ({ isMobile, isActive }) => {
     <div className="project-page-container">
       <div className="content-container">
         <div className="left-section">
+          <div className="phone-and-social">
           <div className="phone-frame">
             <button className="sound-toggle-button" onClick={toggleSound}>
               {isMuted ? "Enable Sound" : "Mute Sound"}
@@ -160,11 +199,14 @@ const ProjectPage = ({ isMobile, isActive }) => {
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   drag={isMobile ? "x" : "y"}
                   dragConstraints={{
-                    left: currentIndex === reels.length - 1 ? 0 : -100,
+                    left: currentIndex === reels.length - 1 ? 0 : -30,
                     right: currentIndex === 0 ? 0 : 100,
-                    top: currentIndex === reels.length - 1 ? 0 : -100,
+                    top: currentIndex === reels.length - 1 ? 0 : -30,
                     bottom: currentIndex === 0 ? 0 : 100,
                   }}
+                  dragElastic={1}
+                  dragMomentum={false}
+                  dragTransition={{ power: 0, timeConstant: 0 }}
                   onDragEnd={(e, { offset, velocity }) => {
                     if (isMobile) {
                       if (
@@ -211,7 +253,7 @@ const ProjectPage = ({ isMobile, isActive }) => {
                   />
                   <div
                     className={`overlay ${
-                      currentIndex === 2 ? "dark-text" : ""
+                      reels[currentIndex].darkText ? "dark-text" : ""
                     }`}
                   >
                     <div className="overlay-content">
@@ -240,6 +282,10 @@ const ProjectPage = ({ isMobile, isActive }) => {
               <span>831</span>
             </div>
           </div>
+          </div>
+          <div className="swipe-hint">
+            {isMobile ? "← Swipe left or right →" : "↑ Swipe up or down ↓"}
+          </div>
         </div>
         <div className="right-section">
           <h2>Project Details</h2>
@@ -254,13 +300,14 @@ const ProjectPage = ({ isMobile, isActive }) => {
                 </React.Fragment>
               ))}
           </p>
-          {reels[currentIndex].details.url !== "" && (
+          {reels[currentIndex].details.url && (
             <a
               href={reels[currentIndex].details.url}
               target="_blank"
               rel="noopener noreferrer"
+              className="project-cta"
             >
-              Play the game here
+              {reels[currentIndex].details.cta}
             </a>
           )}
           {reels[currentIndex].details.img !== "" && (

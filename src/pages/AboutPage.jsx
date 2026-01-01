@@ -1,79 +1,71 @@
 import React, { useEffect } from "react";
 import gsap from "gsap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandSparkles, faHeart, faMagicWandSparkles } from "@fortawesome/free-solid-svg-icons";
 import "./AboutPage.css";
 
 const AboutPage = ({ isMobile, isActive }) => {
+
   useEffect(() => {
-    if (isActive) {
-      const timeline = gsap.timeline();
-      timeline.fromTo(
-        ".meet-li",
-        { x: -200, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1, ease: "power2.out" }
-      );
-      timeline.fromTo(
-        ".what-she-loves",
-        { x: 200, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1, ease: "power2.out" },
-        "<0.15" // Starts 0.3 seconds after the first animation begins
-      );
-      timeline.fromTo(
-        ".in-the-making",
-        { x: -200, opacity: 0 },
-        { x: 0, opacity: 1, duration: 1, ease: "power2.out" },
-        "<0.25" // Starts 0.6 seconds after the first animation begins
-      );
+    // Force cards to be visible immediately
+    const cards = document.querySelectorAll(".card-polaroid");
+    cards.forEach(card => {
+      card.style.opacity = "1";
+    });
+
+    if (isActive && !isMobile) {
+      const timer = setTimeout(() => {
+        gsap.set(".card-1", { rotation: -6 });
+        gsap.set(".card-2", { rotation: 5 });
+        gsap.set(".card-3", { rotation: -4 });
+      }, 10);
+      return () => clearTimeout(timer);
     }
-  }, [isActive]);
+  }, [isActive, isMobile]);
 
   useEffect(() => {
     if (isMobile) {
-      const sections = document.querySelectorAll(".about-page .section");
+      const cards = document.querySelectorAll(".card-polaroid");
 
       const observerOptions = {
-        root: null, // Use the viewport as the root
+        root: null,
         rootMargin: "0px",
-        threshold: 0.25, // Trigger when 25% of the section is visible
+        threshold: 0.25,
       };
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Only trigger the animation if the element is in view
-            const timeline = gsap.timeline();
             const element = entry.target;
-
-            if (element.classList.contains("meet-li")) {
-              timeline.fromTo(
-                element,
-                { x: 0, y: 200, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
-              );
-            } else if (element.classList.contains("what-she-loves")) {
-              timeline.fromTo(
-                element,
-                { x: 0, y: 200, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
-              );
-            } else if (element.classList.contains("in-the-making")) {
-              timeline.fromTo(
-                element,
-                { x: 0, y: 200, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: "power2.out" }
-              );
-            }
+            gsap.fromTo(
+              element,
+              {
+                scale: 0.9,
+                opacity: 0,
+                y: 30
+              },
+              {
+                scale: 1,
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "back.out(1.2)"
+              }
+            );
+            // Unobserve after animating to prevent re-triggering
+            observer.unobserve(element);
           }
         });
       }, observerOptions);
 
-      sections.forEach((section) => {
-        observer.observe(section);
+      cards.forEach((card) => {
+        observer.observe(card);
       });
 
       return () => {
         if (observer) {
-          sections.forEach((section) => {
-            observer.unobserve(section);
+          cards.forEach((card) => {
+            observer.unobserve(card);
           });
         }
       };
@@ -82,33 +74,61 @@ const AboutPage = ({ isMobile, isActive }) => {
 
   return (
     <div className="about-page">
-      <section className="section meet-li">
-        <h2>Meet Li 👋</h2>
-        <p>
-          A history enthusiast whose greatest dream is to ascend to the heaven
-          of Nintendo.
-        </p>
-      </section>
+      <div className="cards-container">
+        <section className="card-polaroid card-1">
+          <div className="window-title-bar card-1-title">
+            <FontAwesomeIcon icon={faHandSparkles} className="title-icon" />
+            <span>Meet Li</span>
+          </div>
+          <div className="section meet-li">
+            <p>
+              A history enthusiast whose greatest dream is to ascend to the heaven
+              of Nintendo.
+            </p>
+            <p className="sanctuary-intro">
+              When the world gets too loud, I retreat to{" "}
+              <a
+                href="https://hikarie.ca"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sanctuary-link"
+              >
+                my sanctuary ◐
+              </a>
+            </p>
+          </div>
+        </section>
 
-      <section className="section what-she-loves">
-        <h2>What She Loves 💖</h2>
-        <p>
-          Forever captivated by the past and fantasy worlds, Li drifts beyond
-          the present, exploring realms of imagination.
-        </p>
-        <p>Naturally, Li turned to tech, where imagination finds form.</p>
-      </section>
+        <section className="card-polaroid card-2">
+          <div className="window-title-bar card-2-title">
+            <FontAwesomeIcon icon={faHeart} className="title-icon" />
+            <span>What She Loves</span>
+          </div>
+          <div className="section what-she-loves">
+            <p>
+              Forever captivated by the past and fantasy worlds, Li drifts beyond
+              the present, exploring realms of imagination.
+            </p>
+            <p>Naturally, Li turned to tech, where imagination finds form.</p>
+          </div>
+        </section>
 
-      <section className="section in-the-making">
-        <h2>In the Making 🗽</h2>
-        <ul>
-          <li>Full-stack wizard.</li>
-          <li>Aspiring JRPG dev.</li>
-          <li>Solo travel pro.</li>
-          <li>Photographer.</li>
-          <li>Amateur true crime detective.</li>
-        </ul>
-      </section>
+        <section className="card-polaroid card-3">
+          <div className="window-title-bar card-3-title">
+            <FontAwesomeIcon icon={faMagicWandSparkles} className="title-icon" />
+            <span>In the Making</span>
+          </div>
+          <div className="section in-the-making">
+            <ul>
+              <li>Full-stack wizard.</li>
+              <li>Aspiring JRPG dev.</li>
+              <li>Solo travel pro.</li>
+              <li>Photographer.</li>
+              <li>Amateur true crime detective.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
     </div>
   );
 };
