@@ -1,8 +1,19 @@
+.photo-page-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .photo-grid {
+  width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
   gap: 2px;
+  align-content: center;
 }
 
 .photo-item {
@@ -11,6 +22,9 @@
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.5s ease forwards;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
 }
 
 @keyframes fadeInUp {

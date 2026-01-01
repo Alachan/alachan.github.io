@@ -27,8 +27,8 @@ const reels = [
     videoSrc: "/assets/videos/newstead.mp4", 
     details: {
       explanation:
-        "Newstead Academy Child Care is the official website developed for a licensed child care business with multiple locations across Ontario.\n" +
-        "The platform was built using Next.js with a focus on performance, accessibility, SEO, and mobile-first design.\n" +
+        "I developed the official website for a licensed child care business with multiple locations across GTA.\n" +
+        "It was built using Next.js with a focus on performance, accessibility, SEO, and mobile-first design.\n" +
         "It features custom enrollment flows, location-based program pages, responsive layouts, and optimized image delivery for fast loading.\n" +
         "The website supports marketing growth, parent onboarding, and daily operational communication while maintaining WCAG-friendly accessibility standards.",
       url: "https://www.newsteadacademy.ca/",

@@ -31,18 +31,31 @@ const PortfolioSite = () => {
 
     if (gifElement) {
       // Set a random starting position
+      const initialX = gsap.utils.random(0, window.innerWidth - 80);
       gsap.set(gifElement, {
-        x: gsap.utils.random(0, window.innerWidth - 80),
+        x: initialX,
         y: gsap.utils.random(0, window.innerHeight - 80),
       });
 
+      let currentX = initialX;
+
       const animate = () => {
+        const nextX = gsap.utils.random(0, window.innerWidth - 80);
+        const nextY = gsap.utils.random(0, window.innerHeight - 80);
+
+        // Determine if we're moving left or right
+        const isMovingLeft = nextX < currentX;
+
         gsap.to(gifElement, {
-          x: gsap.utils.random(0, window.innerWidth - 80), // Adjust for viewport width and gif size
-          y: gsap.utils.random(0, window.innerHeight - 80), // Adjust for viewport height and gif size
-          duration: 2 + Math.random() * 3, // Random duration between 2-5 seconds
+          x: nextX,
+          y: nextY,
+          duration: 4 + Math.random() * 4, // Random duration between 4-8 seconds (slower)
           ease: "power1.inOut",
-          onComplete: animate, // Repeat animation
+          scaleX: isMovingLeft ? -1 : 1, // Flip horizontally when moving left
+          onComplete: () => {
+            currentX = nextX; // Update current position
+            animate(); // Repeat animation
+          },
         });
       };
       animate(); // Start the animation
@@ -182,69 +195,81 @@ const PortfolioSite = () => {
     <div className="portfolio-container">
       <div className="nav-section">
         <div className="nav-content">
-          <div className="logo-container">
-            <img
-              src="/assets/icons/game.png"
-              alt="Site Logo"
-              className="logo-icon"
-            />
-            <span>=&gt;&nbsp;</span>
-            <img
-              src="/assets/icons/start-button.png"
-              alt="Button Logo"
-              className="logo-icon clickable"
-              onClick={toggleGif} // Toggle GIF visibility on click
-            />
-          </div>
-          <div className="about-container">
-            <span
-              className="title-text clickable"
-              onClick={() => flipToSection(3)}
-            >
-              Meet Li
-            </span>
-            <div className="social-links">
-              <a
-                href="https://www.linkedin.com/in/li-h-113199126/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="/assets/icons/linkedin.png"
-                  alt="LinkedIn"
-                  className="social-icon"
-                />
-              </a>
-              <a
-                href="https://github.com/Alachan"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="/assets/icons/github.png"
-                  alt="GitHub"
-                  className="social-icon"
-                />
-              </a>
-              <a href="mailto:lih.lihuang@gmail.com">
-                <img
-                  src="/assets/icons/email.png"
-                  alt="Email"
-                  className="social-icon"
-                />
-              </a>
-              <a
-                href="/assets/Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="/assets/icons/resume.png"
-                  alt="Resume"
-                  className="social-icon"
-                />
-              </a>
+          <div className="nav-top-content">
+            <div className="logo-container">
+              <img
+                src="/assets/icons/game.png"
+                alt="Site Logo"
+                className="logo-icon"
+              />
+              <span>=&gt;&nbsp;</span>
+              <img
+                src="/assets/icons/start-button.png"
+                alt="Button Logo"
+                className="logo-icon clickable"
+                onClick={toggleGif} // Toggle GIF visibility on click
+              />
             </div>
+            <div className="about-container">
+              <span
+                className="title-text clickable"
+                onClick={() => flipToSection(3)}
+              >
+                Meet Li
+              </span>
+              <div className="social-links">
+                <a
+                  href="https://www.linkedin.com/in/li-h-113199126/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/assets/icons/linkedin.png"
+                    alt="LinkedIn"
+                    className="social-icon"
+                  />
+                </a>
+                <a
+                  href="https://github.com/Alachan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/assets/icons/github.png"
+                    alt="GitHub"
+                    className="social-icon"
+                  />
+                </a>
+                <a href="mailto:lih.lihuang@gmail.com">
+                  <img
+                    src="/assets/icons/email.png"
+                    alt="Email"
+                    className="social-icon"
+                  />
+                </a>
+                <a
+                  href="/assets/Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/assets/icons/resume.png"
+                    alt="Resume"
+                    className="social-icon"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="secret-link-container">
+            <a
+              href="https://hikarie.ca"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="secret-dungeon-link"
+            >
+              ◐ My secret dungeon...
+            </a>
           </div>
         </div>
       </div>

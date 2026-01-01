@@ -34,6 +34,7 @@ body {
   justify-content: center;
   height: 100%;
   margin-left: 25%;
+  position: relative;
 }
 
 .logo-container {
@@ -94,6 +95,44 @@ body {
 }
 .social-icon:hover {
   transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.secret-link-container {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  width: 100%;
+  padding-left: 5px;
+}
+
+.secret-dungeon-link {
+  font-family: "Courier New", monospace;
+  font-size: 0.85rem;
+  color: #9370db;
+  text-decoration: none;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+}
+
+.secret-dungeon-link:hover {
+  color: #da70d6;
+  text-shadow: 0 0 10px rgba(218, 112, 214, 0.8);
+  transform: translateX(3px);
+}
+
+.secret-dungeon-link::before {
+  content: "▸ ";
+  opacity: 0;
+  position: absolute;
+  left: -15px;
+  transition: opacity 0.3s ease;
+}
+
+.secret-dungeon-link:hover::before {
+  opacity: 1;
 }
 
 .portfolio-section {
@@ -238,5 +277,9 @@ body {
 
   .clip-button {
     display: none; /* Hide clip buttons on mobile to simplify layout */
+  }
+
+  .secret-link-container {
+    display: none;
   }
 }
